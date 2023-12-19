@@ -1,12 +1,22 @@
 
 function Signup(){
+
+  function cancel(){
+    document.getElementById("signup-segment").style.display = 'none';
+  }
+
+  function loginPage(){
+    document.getElementById("signup-segment").style.display = 'none';
+    document.getElementById("login-segment").style.display = 'block';
+  }
+
   return (
     <div className="signup-segment" id="signup-segment">
 
       <div className="signup-content">
       
         <div className="signup-first">
-          <button className="cancel-button" id="cancel-signup">&times;</button>
+          <button onClick={cancel} className="cancel-button" id="cancel-signup">&times;</button>
           <h1 className="text"> Welcome to Standard Health</h1>
         </div>
         <h1 className="text">Sign Up</h1>
@@ -20,7 +30,7 @@ function Signup(){
         </form>
 
         <div className="account"> Already have an account?
-          <button className="login-button" id="login-button">Login Here</button>
+          <button onClick={loginPage} className="login-button" id="login-button">Login Here</button>
         </div>
       </div>
     </div>

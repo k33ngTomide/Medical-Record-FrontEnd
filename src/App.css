@@ -22,7 +22,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+  font-size: calc(10px + 3vmin);
   color: rgb(2, 2, 2);
 }
 
@@ -43,7 +43,7 @@
 
 .first-page-buttons{
   display: flex;
-  gap: 100px;
+  gap: calc(15px + 4vmin);;
   margin-top: 100px;
 }
 
@@ -52,7 +52,7 @@
   border-radius: 10px;
   background-color: azure;
   padding: 6px 60px;
-  font-size: 30px;
+  font-size: calc(10px + 2vmin);
   cursor: pointer;
 
   &:hover{
@@ -64,6 +64,6 @@
 
 .moto{
   font-family: 'Florist Phillstar', sans-serif;
-  font-size: 60px;
+  font-size: calc(10px + 3vmin);
 }
 
