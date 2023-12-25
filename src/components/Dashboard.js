@@ -10,13 +10,14 @@ export function DashBoard(){
   }
 
   return (
-    <div>
+    <div className='dashboard'>
       <div className='left-dashboard'>
-        <div>
+        <div className='logo-image'>
           <img src={logo} alt='logo' className='Logo'/>
-          <h1>StandardMED</h1>
+          <h2>Standard Med</h2>
         </div>
-        <div>
+        <div className='all-actions'>
+          <button>Get Started</button>
           <button>Profile</button>
           <button>Patients</button>
           <button>Hospitals</button>
