@@ -22,10 +22,11 @@ export function LeftDashBoard(){
           <button><img src={patients} alt='logout' width={20}/>Patients</button>
           <button><img src={hospitals} alt='logout' width={20}/>Hospitals</button>
           <button><img src={help} alt='logout' width={20}/>Help</button>
-          <button><img src={settings} alt='logout' width={20}/>Settings</button>
+          
         </div>
 
         <div className='extra-actions'>
+          <button><img src={settings} alt='logout' width={20}/>Settings</button>
           <button><img src={logoutLogo} alt='logout' width={20}/> Logout</button>  
         </div>
       </div>

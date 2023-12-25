@@ -5,7 +5,7 @@ export function LoadingPage(){
   return (
     <div className='App-header'>
       <img src={logo} alt="Logo" className='App-logo'/>
-      <div class="loader-line"></div>
+      <div className="loader-line"></div>
     </div>
   )
 }

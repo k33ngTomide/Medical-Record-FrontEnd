@@ -24,8 +24,11 @@ export function RightDashBoard(){
           <h1>230</h1>
         </div>
       </div>
+
       <div className='home-pane'>
-        
+        <div>
+          
+        </div>
       </div>
 
       <div className='profile-pane'>
