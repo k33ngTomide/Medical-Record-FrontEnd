@@ -6,9 +6,9 @@ import FirstPage from './components/FirstPage';
 import Signup from './components/SignUp';
 import Login from './components/Login';
 import { DashBoard } from './components/Dashboard';
-import logo from './logo-used.png';
 import React, { useState, useEffect } from 'react';
 import './styles/line_loader.css'
+import { LoadingPage} from './components/LoadingPage';
 
 function App() {
   const [showLogo, setShowLogo] = useState(true);
@@ -26,10 +26,10 @@ function App() {
   return (
     <div className='App'>
       {showLogo && (
-        <div className='App-header'>
-          <img src={logo} alt="Logo" className='App-logo'/>
-          <div class="loader-line"></div>
-        </div>
+        <>
+        
+        <LoadingPage/>
+        </>
       )}
       {!showLogo && (
         <>

@@ -2,7 +2,7 @@ import logo from '../assets/logo-used.png'
 import './SignUp'
 import './Login'
 
-export function FirstPage(){
+function FirstPage(){
 
   function userSignup(){
     backToPage();
