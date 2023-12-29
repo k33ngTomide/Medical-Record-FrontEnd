@@ -1,4 +1,4 @@
-
+import profile from '../logo-used.png'
 
 export function RightDashBoard(){
 
@@ -23,15 +23,22 @@ export function RightDashBoard(){
           <h2> Medical History</h2>
           <h1>230</h1>
         </div>
-      </div>
 
-      <div className='home-pane'>
-        <div>
-          
+        <div className="details-info">
+          <h2> Medical History</h2>
+          <h1>230</h1>
         </div>
+
       </div>
 
       <div className='profile-pane'>
+
+        <img src={profile} alt='profile' />
+        <>
+          <h1>Name: <span>Username</span></h1>
+          <p></p>
+
+        </>
 
       </div>
 

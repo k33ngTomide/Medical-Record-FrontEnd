@@ -7,7 +7,7 @@ import Signup from './components/SignUp';
 import Login from './components/Login';
 import { DashBoard } from './components/Dashboard';
 import React, { useState, useEffect } from 'react';
-import './styles/line_loader.css'
+import './styles/line_loader.css';
 import { LoadingPage} from './components/LoadingPage';
 
 function App() {
