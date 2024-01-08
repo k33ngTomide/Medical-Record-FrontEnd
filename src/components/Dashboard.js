@@ -6,6 +6,7 @@ import '../styles/dashboard.css';
 
 
 export function DashBoard(){
+  
 
   return (
     <div className='dashboard'>

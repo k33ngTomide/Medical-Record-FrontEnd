@@ -4,34 +4,38 @@ export function RightDashBoard(){
 
   return (
     <div className='right-dashboard'>
-      <div className='welcome'>
-        <h1 className='username'>Welcome <span>Username</span></h1>
+      <div className='home' id='home'>
+        <div className='welcome'>
+          <h1 className='username'>Welcome <span>Username</span></h1>
+        </div>
+
+        <div className="details-pane">
+          <div className="details-info">
+            <h1>Patients</h1>
+            <h1>23</h1>
+          </div>
+
+          <div className="details-info">
+            <h1>Hospitals</h1>
+            <h1>23</h1>
+          </div>
+
+          <div className="details-info">
+            <h1> Medical History</h1>
+            <h1>230</h1>
+          </div>
+
+          <div className="details-info">
+            <h1> Medical History</h1>
+            <h1>230</h1>
+          </div>
+
+        </div>
       </div>
+      
 
-      <div className="details-pane">
-        <div className="details-info">
-          <h1>Patients</h1>
-          <h1>23</h1>
-        </div>
 
-        <div className="details-info">
-          <h1>Hospitals</h1>
-          <h1>23</h1>
-        </div>
-
-        <div className="details-info">
-          <h1> Medical History</h1>
-          <h1>230</h1>
-        </div>
-
-        <div className="details-info">
-          <h1> Medical History</h1>
-          <h1>230</h1>
-        </div>
-
-      </div>
-
-      <div className='profile-pane'>
+      <div className='profile-pane' id='profile'>
 
         <img src={profile} alt='profile' />
         <button>Change Image</button>
@@ -49,11 +53,11 @@ export function RightDashBoard(){
         <button id='add-patient'>Add Patients</button>
       </div>
 
-      <div className='hospitals' id='hospital'>
+      <div className='hospitals' id='hospitals'>
         <button id='add-hospital'>Add hospitals</button>
       </div>
 
-      <div className='helps'>
+      <div className='helps' id='helps'>
         <h2>Welcome to Standard Med Support center</h2>
 
         <div className='report' id='report-pane'>
@@ -76,7 +80,7 @@ export function RightDashBoard(){
 
 
         <p>Follow Us:
-          Stay connected with us on social media for updates, tips, and community highlights.
+          Stay connected with us on social media for updates, tips, and community highlights.<br/>
           Subscribe to our newsletter for the latest news and exclusive content.
           Thank you for choosing Standard Med! We are here to ensure you have a seamless experience. If you can't find the information you need, don't hesitate to reach out to our support team. Your satisfaction is our priority.
         </p>
