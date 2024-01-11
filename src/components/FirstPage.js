@@ -1,6 +1,6 @@
 import logo from '../assets/logo-used.png'
-import './SignUp'
-import './Login'
+import Signup from './SignUp';
+import Login from './Login';
 
 function FirstPage(){
 
@@ -31,6 +31,11 @@ function FirstPage(){
         <button onClick={userLogin}>Login</button>
       </div>
 
+      <div className='App'>
+        <Signup/>
+        <Login/>
+      </div>
+      
     </div>
   )
 

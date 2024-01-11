@@ -22,21 +22,18 @@ function App() {
       clearTimeout(timer);
     };
   }, []);
+  
 
   return (
     <div className='App'>
       {showLogo && (
         <>
-        
-        <LoadingPage/>
+          <LoadingPage/>
         </>
       )}
       {!showLogo && (
         <>
           <FirstPage />
-          <Signup />
-          <Login />
-          <DashBoard />
         </>
       )}
     </div>
