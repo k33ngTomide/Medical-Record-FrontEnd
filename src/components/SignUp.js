@@ -13,26 +13,26 @@ function Signup(){
     password: '',
   });
 
-  function cancel(){
+  const cancel = () =>{
     document.getElementById("signup-segment").style.display = 'none';
   }
 
-  function loginPage(){
+  const loginPage = () =>{
     document.getElementById("signup-segment").style.display = 'none';
     document.getElementById("login-segment").style.display = 'block';
   }
 
-  async function handleSignUp(event) {
+  const handleSignUp = async(event) => {
     event.preventDefault();
     setIsLoading(true);
     const {email, firstName, licence, password, specialization} = formData
 
     let signupRequest = {
-      "email": email,
-      "username": firstName,
-      "licence": licence,
-      "password": password,
-      "Specialization": specialization,
+      "email": email.trim(),
+      "username": firstName.trim(),
+      "licence": licence.trim(),
+      "password": password.trim(),
+      "Specialization": specialization.trim(),
     }
 
     const url = "https://standardmed.onrender.com/standard-health/register"

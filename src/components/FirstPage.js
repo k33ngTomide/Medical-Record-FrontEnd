@@ -4,17 +4,17 @@ import Login from './Login';
 
 function FirstPage(){
 
-  function userSignup(){
+  const userSignup =() =>{
     backToPage();
     document.getElementById("signup-segment").style.display = 'block';
   }
 
-  function userLogin(){
+  const userLogin = () =>{
     backToPage();
     document.getElementById("login-segment").style.display = 'block';
   }
 
-  function backToPage(){
+  const backToPage = () => {
     document.getElementById("login-segment").style.display = 'none';
     document.getElementById("signup-segment").style.display = 'none';
   }

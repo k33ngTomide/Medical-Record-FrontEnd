@@ -1,6 +1,6 @@
-import { useState, useHistory } from 'react';
+import { useState } from 'react';
 import './Dashboard'
-import { DashBoard } from './Dashboard';
+// import { DashBoard } from './Dashboard';
 import Loader from './Loader';
 import '../styles/loader.css'
 
@@ -28,8 +28,9 @@ function Login(){
         "password": password
       }
 
-      let url = "https://standardmed.onrender.com/standard-health/login"
-      const response = await fetch(url, {
+      // let url = "https://standardmed.onrender.com/standard-health/login";
+      let urll = 'http://localhost:9191/standard-health/login';
+      const response = await fetch(urll, {
         method: "POST",
         body: JSON.stringify(loginRequest),
         headers: {
@@ -44,6 +45,7 @@ function Login(){
         return;
       }
       
+
       setIsLoading(false);
 
     } catch (error) {
