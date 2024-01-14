@@ -3,6 +3,7 @@ import './Dashboard'
 // import { DashBoard } from './Dashboard';
 import Loader from './Loader';
 import '../styles/loader.css'
+import { useNavigate } from 'react-router-dom';
 
 
 function Login(){
@@ -11,6 +12,7 @@ function Login(){
     username:'',
     password : '',
   })
+  const navigate = useNavigate();
 
   const cancel = () => {
     document.getElementById("login-segment").style.display = 'none';
@@ -28,9 +30,8 @@ function Login(){
         "password": password
       }
 
-      // let url = "https://standardmed.onrender.com/standard-health/login";
-      let urll = 'http://localhost:9191/standard-health/login';
-      const response = await fetch(urll, {
+      let url = "https://standardmed.onrender.com/standard-health/login";
+      const response = await fetch(url, {
         method: "POST",
         body: JSON.stringify(loginRequest),
         headers: {
@@ -44,11 +45,18 @@ function Login(){
         document.getElementById('signup-response').innerHTML = response.text();
         return;
       }
-      
 
+      console.log(response);
+      const result = await response.json();
+      console.log(result);
+
+      let { username: loggedInUsername } = result;
+      localStorage.setItem('stdmeduname', loggedInUsername);
+      navigate('/dashboard');
       setIsLoading(false);
-
+  
     } catch (error) {
+      setIsLoading(false);
       console.error('Error during fetch:', error);
     }
 

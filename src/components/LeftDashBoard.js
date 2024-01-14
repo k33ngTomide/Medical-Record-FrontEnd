@@ -11,13 +11,44 @@ import helpClick from '../actions/helpClick';
 import hospitalClick from '../actions/hospitalClick';
 import patientClick from '../actions/patientsClick';
 import profileClick from '../actions/profileClick.js';
+import { useNavigate } from 'react-router';
+import Loader from './Loader.js';
+import { useState } from 'react';
 
 
 
 export function LeftDashBoard(){
+  const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
+
+  const logout = () => {
+    console.log('i got here');
+    setIsLoading(true);
+    let username = localStorage.getItem('stdmeduname');
+
+    let url = "https://standardmed.onrender.com/standard-health/logout-user";
+    const response = fetch (url, {
+      method: 'PATCH',
+      body: JSON.stringify({username}),
+      headers:{
+        'Content-Type': 'application/json'
+      }
+    })
+
+    response.then( res => res.text())
+    .then(text => {
+      console.log(text)
+      if(text.includes('Logged out')){
+        navigate('/');
+      }
+    }).catch(error => {
+      console.log(error.message);
+    })
+  }
 
   return (
     <div className='left-dashboard'>
+        <Loader isLoading={isLoading}/>
         <div className='logo-image'>
           <img src={logo} alt='logo' className='Logo'/>
           <h2>Standard Med</h2>
@@ -33,7 +64,10 @@ export function LeftDashBoard(){
 
         <div className='extra-actions'>
           <button><img src={settings} alt='logout' width={20}/>Settings</button>
-          <button><img src={logoutLogo} alt='logout' width={20}/> Logout</button>  
+          <button onClick={logout}>
+            <img src={logoutLogo} alt='logout' width={20} /> 
+            Logout
+            </button>  
         </div>
       </div>
   )

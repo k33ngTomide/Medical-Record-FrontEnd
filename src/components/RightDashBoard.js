@@ -33,8 +33,6 @@ export function RightDashBoard(){
         </div>
       </div>
       
-
-
       <div className='profile-pane' id='profile'>
 
         <img src={profile} alt='profile' />
