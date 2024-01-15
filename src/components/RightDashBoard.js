@@ -7,8 +7,39 @@ export function RightDashBoard(){
 
   useEffect(() => {
     const drName = localStorage.getItem('stdmeduname');
-    setValue(drName)
+    setValue(drName);
+
+    const fetchData = async () => {
+      const doctorName = localStorage.getItem('stdmeduname');
+      const url = `https://standardmed.onrender.com/standard-health/find-doctor/${doctorName}`
+      
+      const response = await fetch(url, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+
+      const result = await response.json();
+      console.log('user: ', result.data);
+      const {email, username, licence, Specialization, dateRegistered, isloggedIn} = result.data;
+      
+      document.getElementById('doctor-email').innerHTML = email;
+      document.getElementById('doctor-name').innerHTML = username;
+      document.getElementById('doctor-spec').innerHTML = Specialization;
+      document.getElementById('doctor-licence').innerHTML = licence
+      document.getElementById('registered-date').innerHTML = dateRegistered.join('/');
+      if(isloggedIn){
+        document.getElementById('doctor-status').innerHTML = 'Active'
+      }
+    }
+
+    fetchData();  
   }, []);
+
+  const handleFileChange = () => {
+    console.log("an image was selected");
+  }
   
   return (
     <div className='right-dashboard'>
@@ -43,8 +74,17 @@ export function RightDashBoard(){
       
       <div className='profile-pane' id='profile'>
 
-        <img src={profile} alt='profile' />
-        <button>Change Image</button>
+        <img src={profile} alt='profile' id='profile-image'/>
+        <button onClick={() => document.getElementById('imageInput').click()}>
+          <input
+            type="file"
+            id="imageInput"
+            accept="image/*"
+            style={{ display: 'none' }}
+            onChange={handleFileChange}
+          />
+          Change Image
+        </button>
 
         <div>
           <h1>Name: <span id='doctor-name'>Username</span></h1>
@@ -59,10 +99,16 @@ export function RightDashBoard(){
 
       <div className='patients' id='patients'>
         <button id='add-patient'>Add Patients</button>
+        <button id='remove-patient'>Remove Patients</button>
       </div>
 
       <div className='hospitals' id='hospitals'>
         <button id='add-hospital'>Add hospitals</button>
+        <button id='remove-hospital'>remove hospitals</button>
+
+        <div id='all-hospitals'>
+          
+        </div>
       </div>
 
       <div className='helps' id='helps'>

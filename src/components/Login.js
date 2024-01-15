@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom';
 
 function Login(){
   const [isLoading, setIsLoading] = useState(false);
-  const [data, setData] = useState({
+  const [userData, setData] = useState({
     username:'',
     password : '',
   })
@@ -23,7 +23,7 @@ function Login(){
     try{
       event.preventDefault();
       setIsLoading(true);
-      const {username, password} = data;
+      const {username, password} = userData;
 
       let loginRequest = {
         "username": username,
@@ -55,7 +55,7 @@ function Login(){
         document.getElementById('signup-response').innerHTML = response.text();
         return;
       }
-      
+
       let { data} = result;
       const {username: loggedInUsername } = data;
       localStorage.setItem('stdmeduname', loggedInUsername);
@@ -87,8 +87,8 @@ function Login(){
                 placeholder="Enter Username" 
                 id="signin-username" 
                 required
-                value={data.username}
-                onChange={(e) => setData({...data, username: e.target.value})}
+                value={userData.username}
+                onChange={(e) => setData({...userData, username: e.target.value})}
               />
 
               <input 
@@ -96,8 +96,8 @@ function Login(){
                 placeholder="Enter password" 
                 id="signin-password" 
                 required
-                value={data.password}
-                onChange={(e) => setData({...data, password: e.target.value})}
+                value={userData.password}
+                onChange={(e) => setData({...userData, password: e.target.value})}
               />
 
               <button className="signin-button" id="signin-button" type="submit">Login</button>

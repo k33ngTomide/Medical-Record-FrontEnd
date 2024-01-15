@@ -16,8 +16,8 @@ async function profileClick(){
   });
 
   const result = await response.json();
-  console.log('user: ', result);
-  const {email, username, licence, Specialization, dateRegistered, isloggedIn} = result;
+  console.log('user: ', result.data);
+  const {email, username, licence, Specialization, dateRegistered, isloggedIn} = result.data;
   
   document.getElementById('doctor-email').innerHTML = email;
   document.getElementById('doctor-name').innerHTML = username;
@@ -27,7 +27,6 @@ async function profileClick(){
   if(isloggedIn){
     document.getElementById('doctor-status').innerHTML = 'Active'
   }
-  
   
 }
 
