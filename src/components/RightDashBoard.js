@@ -1,12 +1,20 @@
+import { useEffect, useState } from 'react'
 import profile from '../assets/profile_dummy.png'
 
 export function RightDashBoard(){
 
+  const [value, setValue] = useState('');
+
+  useEffect(() => {
+    const drName = localStorage.getItem('stdmeduname');
+    setValue(drName)
+  }, []);
+  
   return (
     <div className='right-dashboard'>
       <div className='home' id='home'>
         <div className='welcome'>
-          <h1 className='username'>Welcome <span>Username</span></h1>
+          <h1 className='username'>Welcome <span id='user-id'>{value}</span></h1>
         </div>
 
         <div className="details-pane">
@@ -39,10 +47,12 @@ export function RightDashBoard(){
         <button>Change Image</button>
 
         <div>
-          <h1>Name: <span>Username</span></h1>
-          <p>Specialization: <span>Specialization</span></p>
-          <p>License: <span>License</span></p>
-          <p>Status: <span>Active</span></p>
+          <h1>Name: <span id='doctor-name'>Username</span></h1>
+          <p>Email: <span id='doctor-email'>Email</span></p>
+          <p>Specialization: <span id='doctor-spec'>Specialization</span></p>
+          <p>License: <span id='doctor-licence'>License</span></p>
+          <p>Status: <span  id='doctor-status'>Inactive</span></p>
+          <p>Date Registered: <span id='registered-date'>yy/mm/dd</span></p>
         </div>
 
       </div>

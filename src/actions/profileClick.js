@@ -15,9 +15,18 @@ async function profileClick(){
     }
   });
 
-  const result = response.json();
+  const result = await response.json();
   console.log('user: ', result);
-  const { id, email, username, licence, Specialization, dateRegistered, isloggedIn} = result; 
+  const {email, username, licence, Specialization, dateRegistered, isloggedIn} = result;
+  
+  document.getElementById('doctor-email').innerHTML = email;
+  document.getElementById('doctor-name').innerHTML = username;
+  document.getElementById('doctor-spec').innerHTML = Specialization;
+  document.getElementById('doctor-licence').innerHTML = licence
+  document.getElementById('registered-date').innerHTML = dateRegistered.join('/');
+  if(isloggedIn){
+    document.getElementById('doctor-status').innerHTML = 'Active'
+  }
   
   
 }

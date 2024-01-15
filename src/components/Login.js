@@ -50,7 +50,14 @@ function Login(){
       const result = await response.json();
       console.log(result);
 
-      let { username: loggedInUsername } = result;
+      if(typeof result.data === 'string'){
+        setIsLoading(false);
+        document.getElementById('signup-response').innerHTML = response.text();
+        return;
+      }
+      
+      let { data} = result;
+      const {username: loggedInUsername } = data;
       localStorage.setItem('stdmeduname', loggedInUsername);
       navigate('/dashboard');
       setIsLoading(false);
@@ -60,7 +67,6 @@ function Login(){
       console.error('Error during fetch:', error);
     }
 
-  
   }
   
 
