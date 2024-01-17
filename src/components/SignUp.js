@@ -32,10 +32,10 @@ function Signup(){
       "username": firstName.trim(),
       "licence": licence.trim(),
       "password": password.trim(),
-      "Specialization": specialization.trim(),
+      "specialization": specialization.trim(),
     }
 
-    const url = "https://standardmed.onrender.com/standard-health/register"
+    const url = 'https://standardmed.onrender.com/standard-health/register'
 
     await fetch(url, {
       method: 'POST',
@@ -46,6 +46,12 @@ function Signup(){
     })
     .then(response => response.text())
     .then(response => {
+      if(response.includes('Registration Successful')){
+        sendEmail();
+        document.getElementById('signup-response').innerHTML = response;
+        document.getElementById('email-info').innerHTML = 'Check Your Email to verify your Email';
+        
+      }
       setIsLoading(false);
       document.getElementById('signup-response').innerHTML = response
       console.log(response);
@@ -56,6 +62,52 @@ function Signup(){
       console.error(error);
     });
     
+  }
+
+
+  const sendEmail = async() => {
+    const {email, firstName} = formData;
+
+    const emailRequest = {
+      sender: {
+        name: 'Standard Med',
+        email: 'stdMed@gmail.com',
+      },
+      to: [
+        {
+          name: firstName.trim(),
+          email: email.trim()
+        }
+      ],
+      subject: 'Account on Standard-Med Created Successfully',
+      htmlContent: `<p>
+        Dear ${firstName}, Welcome to Standard Med.<br>
+        This is a confirmation that your account on Standard Med was created Successfully.
+        Click <a href="https://google.com">here</a> to Verify Your Email.
+      </p>`
+    }
+
+    await fetch('https://api.brevo.com/v3/smtp/email', {
+      method:'POST',
+      body: JSON.stringify(emailRequest),
+      headers:{
+        'Accept': 'application/json',
+        'Api-key': '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',
+        'Content-Type': 'application/json'
+      }
+    })
+    .then(response => response.json())
+    .then(object => {
+      console.log(object);
+      if(object.messageId){
+        console.log('email sent successfully');
+      } else{
+        console.log('email sending failed')
+      }
+    }).catch((error) => {
+      console.log(error);
+    })
+
   }
 
   return (
@@ -69,6 +121,7 @@ function Signup(){
         </div>
         <h1 className='normal-text'>Sign Up</h1>
         <p className='normal-text' id='signup-response'></p>
+        <p id='email-info'></p>
         <form className="details" id="signup" method="post" onSubmit={handleSignUp}>
           <input 
             type="text" 

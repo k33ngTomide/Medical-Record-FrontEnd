@@ -1,9 +1,17 @@
 import { useEffect, useState } from 'react'
 import profile from '../assets/profile_dummy.png'
+import { AddPatientForm } from './AddPatientForm';
+import { AddHospitalForm } from './AddHospitalForm';
+import { RemoveHospitalForm } from './RemoveHospitalForm';
+import { RemovePatientForm } from './RemovePatientForm';
 
 export function RightDashBoard(){
 
   const [value, setValue] = useState('');
+  const [showPatient, setShowPatient] = useState(false);
+  const [showRemovePatient, setShowRemovePatient] = useState(false);
+  const [showHospital, setShowHospital] = useState(false);
+  const [showRemoveHospital, setShowRemoveHospital] = useState(false);
 
   useEffect(() => {
     const drName = localStorage.getItem('stdmeduname');
@@ -12,7 +20,7 @@ export function RightDashBoard(){
     const fetchData = async () => {
       const doctorName = localStorage.getItem('stdmeduname');
       const url = `https://standardmed.onrender.com/standard-health/find-doctor/${doctorName}`
-      
+
       const response = await fetch(url, {
         method: 'GET',
         headers: {
@@ -22,11 +30,15 @@ export function RightDashBoard(){
 
       const result = await response.json();
       console.log('user: ', result.data);
-      const {email, username, licence, Specialization, dateRegistered, isloggedIn} = result.data;
+      const {email, pictureLink, username, licence, specialization, dateRegistered, isloggedIn} = result.data;
+      
+      if(pictureLink){
+        document.getElementById('profile-image').src = pictureLink;
+      }
       
       document.getElementById('doctor-email').innerHTML = email;
       document.getElementById('doctor-name').innerHTML = username;
-      document.getElementById('doctor-spec').innerHTML = Specialization;
+      document.getElementById('doctor-spec').innerHTML = specialization;
       document.getElementById('doctor-licence').innerHTML = licence
       document.getElementById('registered-date').innerHTML = dateRegistered.join('/');
       if(isloggedIn){
@@ -37,10 +49,54 @@ export function RightDashBoard(){
     fetchData();  
   }, []);
 
-  const handleFileChange = () => {
-    console.log("an image was selected");
+  const handleFileChange = (event) => {
+
+    try{
+
+      console.log("an image was selected");
+      const newFile = document.getElementById('imageInput').files[0];
+
+      const username = localStorage.getItem('stdmeduname');
+      const formData = new FormData();
+      formData.append('file', newFile);
+
+      fetch(`https://standardmed.onrender.com/standard-health/doctor/${username}/upload`,{
+        method: 'POST',
+        body: formData,
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      }).then(response => response.json())
+      .then(object => {
+        const {pictureLink} = object;
+        console.log(pictureLink);
+        if(pictureLink){
+          console.log('Successful');
+        }
+
+      }).catch(error => {
+        console.log(error);
+      })
+    } catch(error){
+      console.log(error.message);
+    }
   }
+
+  const toggleAddPatient = () => {
+    setShowPatient(!showPatient);
+  };
   
+  const toggleRemovePatient = () => {
+    setShowRemovePatient(!showRemovePatient);
+  };
+
+  const toggleAddHospital = () => {
+    setShowHospital(!showHospital);
+  };
+  
+  const toggleRemoveHospital = () => {
+    setShowRemoveHospital(!showRemoveHospital);
+  };
   return (
     <div className='right-dashboard'>
       <div className='home' id='home'>
@@ -64,9 +120,20 @@ export function RightDashBoard(){
             <h1>230</h1>
           </div>
 
-          <div className="details-info">
-            <h1> Medical History</h1>
-            <h1>230</h1>
+          
+        </div>
+
+        <div className='details-pane'>
+          <div className='details-info'>
+
+          </div>
+
+          <div className='details-info'>
+
+          </div>
+
+          <div className='details-info'>
+
           </div>
 
         </div>
@@ -98,13 +165,38 @@ export function RightDashBoard(){
       </div>
 
       <div className='patients' id='patients'>
-        <button id='add-patient'>Add Patients</button>
-        <button id='remove-patient'>Remove Patients</button>
+        <>
+          <h1>Patients</h1>
+          <button id='add-patient' onClick={toggleAddPatient}>Add Patient</button>
+          <button id='remove-patient' onClick={toggleRemovePatient}>Delete Patient</button>
+        </>
+        
+        <div>
+          { showPatient && (<AddPatientForm/>)}
+        </div>
+        <div>
+          {showRemovePatient && (<RemovePatientForm/>)}
+        </div>
+        <div id='all-patients'>
+          
+        </div>
       </div>
 
       <div className='hospitals' id='hospitals'>
-        <button id='add-hospital'>Add hospitals</button>
-        <button id='remove-hospital'>remove hospitals</button>
+        <>
+          <>
+            <h1>Hospitals</h1>
+          </>
+          
+          <button id='add-hospital' onClick={toggleAddHospital}>Add hospitals</button>
+          <button id='remove-hospital' onClick={toggleRemoveHospital}>Delete Hospitals</button>
+        </>
+        <div>
+          { showHospital && (<AddHospitalForm/>)}
+        </div>
+        <div>
+          {showRemoveHospital && (<RemoveHospitalForm/>)}
+        </div>
 
         <div id='all-hospitals'>
           

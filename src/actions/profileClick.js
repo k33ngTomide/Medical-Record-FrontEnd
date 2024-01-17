@@ -17,11 +17,13 @@ async function profileClick(){
 
   const result = await response.json();
   console.log('user: ', result.data);
-  const {email, username, licence, Specialization, dateRegistered, isloggedIn} = result.data;
-  
+  const {email, username, licence, specialization,pictureLink, dateRegistered, isloggedIn} = result.data;
+  if(pictureLink){
+    document.getElementById('profile-image').src = pictureLink;
+  }
   document.getElementById('doctor-email').innerHTML = email;
   document.getElementById('doctor-name').innerHTML = username;
-  document.getElementById('doctor-spec').innerHTML = Specialization;
+  document.getElementById('doctor-spec').innerHTML = specialization;
   document.getElementById('doctor-licence').innerHTML = licence
   document.getElementById('registered-date').innerHTML = dateRegistered.join('/');
   if(isloggedIn){
