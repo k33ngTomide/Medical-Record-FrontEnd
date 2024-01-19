@@ -15,7 +15,7 @@ function App() {
   useEffect(() => {
     const timer = setTimeout(() => {
       setShowLogo(false);
-    }, 200);
+    }, 10000);
 
     return () => {
       clearTimeout(timer);

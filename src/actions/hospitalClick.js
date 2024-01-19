@@ -48,6 +48,7 @@ function hospitalClick(){
     .then(object => {
       if(typeof object.data === 'string'){
         console.log(object.data);
+        document.getElementById('all-hospitals').innerHTML = object.data;
       }
 
       const ground = document.getElementById('all-hospitals');

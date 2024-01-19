@@ -5,7 +5,7 @@ import { AddHospitalForm } from './AddHospitalForm';
 import { RemoveHospitalForm } from './RemoveHospitalForm';
 import { RemovePatientForm } from './RemovePatientForm';
 import {SearchPatientForm} from './SearchPatientForm';
-import { SearchHospitalForm } from './SearchHospitalForm';
+import { MedicalHistoryForm } from './MedicalHistoryForm';
 
 export function RightDashBoard(){
 
@@ -13,13 +13,65 @@ export function RightDashBoard(){
   const [showPatient, setShowPatient] = useState(false);
   const [showRemovePatient, setShowRemovePatient] = useState(false);
   const [showSearchPatient, setShowSearchPatient] = useState(false);
-  const [showSearchHospital, setShowSearchHospital] = useState(false);
+  const [showMedicalH, setShowMedicalH] = useState(false);
   const [showHospital, setShowHospital] = useState(false);
   const [showRemoveHospital, setShowRemoveHospital] = useState(false);
 
   useEffect(() => {
     const drName = localStorage.getItem('stdmeduname');
     setValue(drName);
+
+    const fetchPatientData = async () => {
+      try{
+        const doctorName = localStorage.getItem('stdmeduname')
+        const url = `https://standardmed.onrender.com/standard-health/${doctorName}/patients`
+        await fetch(url, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        }).then(response => response.json())
+        .then(object => {
+          console.log(object.data);
+          if(typeof object.data == 'string'){
+            document.getElementById('patient-number').innerHTML = 0;
+            return
+          }
+          document.getElementById('patient-number').innerHTML = object.data.length;
+          
+        })
+    
+      } catch(error){
+        console.log(error.message);
+      }
+      
+    }
+
+    const hospitalDataFetch = async() => {
+      try{
+        const doctorName = localStorage.getItem('stdmeduname');
+
+        const url = `https://standardmed.onrender.com/standard-health/${doctorName}/hospitals`
+        await fetch(url, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        }).then(response => response.json())
+        .then(object => {
+          if(typeof object.data === 'string'){
+            console.log(object.data);
+            document.getElementById('hospital-number').innerHTML = 0;
+          }
+          console.log(object.data);
+          document.getElementById('hospital-number').innerHTML = object.data.length;
+
+        })
+      } catch(error){
+        console.log(error.message)
+      }
+    }
+
 
     const fetchData = async () => {
       const doctorName = localStorage.getItem('stdmeduname');
@@ -72,7 +124,9 @@ export function RightDashBoard(){
     }
 
     fetchData();  
-    fetchNews()
+    fetchNews();
+    hospitalDataFetch();
+    fetchPatientData();
   }, []);
 
   const separateArticles = (articles, newsDiv) => {
@@ -101,6 +155,7 @@ export function RightDashBoard(){
   }
 
   const handleFileChange = (event) => {
+    event.preventDefault();
 
     try{
 
@@ -134,26 +189,34 @@ export function RightDashBoard(){
   }
 
   const toggleAddPatient = () => {
+    setShowRemovePatient(false);
+    setShowSearchPatient(false);
     setShowPatient(!showPatient);
   };
   
   const toggleRemovePatient = () => {
+    setShowPatient(false);
+    setShowSearchPatient(false);
     setShowRemovePatient(!showRemovePatient);
   };
 
   const toggleAddHospital = () => {
+    setShowRemoveHospital(false)
     setShowHospital(!showHospital);
   };
   
   const toggleRemoveHospital = () => {
+    setShowHospital(false);
     setShowRemoveHospital(!showRemoveHospital);
   };
 
-  const toggleSearchHospital = () => {
-    setShowSearchHospital(!showSearchHospital);
+  const togglePatientMedicalH = () => {
+    setShowMedicalH(!showMedicalH);
   };
 
   const toggleSearchPatient = () => {
+    setShowRemovePatient(false);
+    setShowPatient(false);
     setShowSearchPatient(!showSearchPatient);
   };
   return (
@@ -165,19 +228,15 @@ export function RightDashBoard(){
 
         <div className="details-pane">
           <div className="details-info">
-            <h1>Patients</h1>
-            <h1 id='patient-number'>23</h1>
+            <h1>Your Patients</h1>
+            <h1 id='patient-number'>0</h1>
           </div>
 
           <div className="details-info">
-            <h1>Hospitals</h1>
-            <h1 id='hospital-number'>23</h1>
+            <h1>Hospitals You Work</h1>
+            <h1 id='hospital-number'>0</h1>
           </div>
 
-          <div className="details-info">
-            <h1> Medical History</h1>
-            <h1>230</h1>
-          </div>
         </div>
 
         <div >
@@ -223,6 +282,7 @@ export function RightDashBoard(){
             <button id='Add-patient' onClick={toggleAddPatient}>Add Patient</button>
             <button id='Remove-patient' onClick={toggleRemovePatient}>Delete Patient</button>
             <button id='Search-patient' onClick={toggleSearchPatient}>Search Patient</button>
+            <button id='patient-medicalH' onClick={togglePatientMedicalH}>Add Medical History</button>
           </div>
           
           <div>
@@ -234,7 +294,10 @@ export function RightDashBoard(){
           <div>
             {showSearchPatient && (<SearchPatientForm/>)}
           </div>
-          <div id='all-patients'>
+          <div>
+            {showMedicalH && (<MedicalHistoryForm/>)}
+          </div>
+          <div className='details-pane' id='all-patients'>
             <p id='patient-normal'></p>
             
           </div>

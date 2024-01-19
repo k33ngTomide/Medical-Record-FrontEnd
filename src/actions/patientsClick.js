@@ -3,9 +3,9 @@ import clear from './clear';
 
 function patientClick(){
 
-  const clearChildren= (element) => {
-    while (element.firstChild) {
-      element.removeChild(element.firstChild);
+  const clearChildren= (allPatients) => {
+    while (allPatients.firstChild) {
+      allPatients.removeChild(allPatients.firstChild);
     }
   }
 
@@ -13,7 +13,8 @@ function patientClick(){
     clearChildren(allPatients);
 
     data.forEach(patient => {
-      createNewElements(patient)
+      const allContent = createNewElements(patient);
+      allPatients.appendChild(allContent);
 
     });
 
@@ -25,10 +26,26 @@ function patientClick(){
     const {name} = hospitalName;
     const newDiv = document.createElement('div');
     const newH1 = document.createElement('h1');
+    const hospital = document.createElement('h3');
+    const pro = document.createElement('h4');
     const newp = document.createElement('p');
+    const DOB = document.createElement('p');
+
 
     newH1.innerHTML = fullName;
-    
+    hospital.innerHTML = name;
+    newp.innerHTML = `${Gender}   ${maritalStatus}`;
+    DOB.innerHTML = `DOB: ${dateOfBirth}`;
+    pro.innerHTML = `Occupation: ${occupation}`
+
+    newDiv.appendChild(newH1);
+    newDiv.appendChild(hospital);
+    newDiv.appendChild(newp);
+    newDiv.appendChild(DOB);
+    newDiv.appendChild(pro);
+    newDiv.className= 'patient-package'
+
+    return newDiv;
     
   }
 
