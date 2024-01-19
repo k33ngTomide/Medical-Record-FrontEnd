@@ -12,14 +12,69 @@ export function AddPatientForm() {
     allergies: '',
   })
 
-  const handleSubmit = () => {
+  const registerPatient = async(event) => {
+    event.preventDefault()
+
+    try{
+      const {fullName,
+        hospitalName,
+        gender,
+        dateOfBirth,
+        occupation,
+        maritalStatus,
+        allergies} = patientData
+    
+        const details = {
+          Gender: gender,
+          dateOfBirth: dateOfBirth,
+          occupation: occupation,
+          maritalStatus: maritalStatus,
+          allergies: allergies
+        }
+    
+        const patientRegisterRequest = {
+          fullName: fullName,
+          doctorName: localStorage.getItem('stdmeduname'),
+          hospitalName: hospitalName,
+          details: details
+        }
+    
+        const url = 'https://standardmed.onrender.com/standard-health/register-patient';
+        await fetch(url, {
+          method: 'POST',
+          body: JSON.stringify(patientRegisterRequest),
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        })
+          .then(response => response.text())
+          .then(data => {
+            console.log('Response:', data);
+            document.getElementById('add-patient-response').innerHTML = data;
+          })
+    } catch(error){
+      console.log(error);
+      document.getElementById('add-patient-response').innerHTML = 'An Error Occurred';
+
+    } finally{
+      setPatientData({
+        fullName: '',
+        hospitalName: '',
+        gender:'',
+        dateOfBirth: '',
+        occupation: '',
+        maritalStatus: '',
+        allergies: '',
+      })
+    }
+    
     
   }
 
   return(
     <div className='add-div'>
       <p id="add-patient-response"></p>
-      <form method='post' className='add-patient-form' onSubmit={handleSubmit}>
+      <form method='post' className='add-patient-form' >
         <input 
           type='text'
           placeholder='Patient Name'
@@ -34,6 +89,17 @@ export function AddPatientForm() {
           onChange={(e) => setPatientData({...patientData, hospitalName:e.target.value})}
         />
 
+        <select
+          id="gender"
+          value={patientData.gender}
+          onChange={(e) => setPatientData({ ...patientData, gender: e.target.value })}
+        >
+          <option value="" disabled>Select gender</option>
+          <option value="Male">Male</option>
+          <option value="Female">Female</option>
+          <option value="other">Other</option>
+        </select>
+
         <input 
           type='text'
           placeholder='Gender'
@@ -43,9 +109,10 @@ export function AddPatientForm() {
 
         <input 
           type='text'
-          placeholder='Date of birth'
+          placeholder='Date of birth "format: YYYY-MM-DD"'
           value={patientData.dateOfBirth}
           onChange={(e) => setPatientData({...patientData, dateOfBirth:e.target.value})}
+          
         />
         <input 
           type='text'
@@ -66,7 +133,7 @@ export function AddPatientForm() {
           onChange={(e) => setPatientData({...patientData, allergies:e.target.value})}
         />
 
-        <button type='submit'>Add Patient</button>
+        <button type='submit' onClick={registerPatient}>Add Patient</button>
       </form>
     </div>
     

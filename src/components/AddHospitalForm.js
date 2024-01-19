@@ -9,10 +9,36 @@ export function AddHospitalForm(){
     hospitalPhone: '',
   })
 
+  const registerHospital = async (event) => {
+    event.preventDefault();
+    const {hospitalName, hospitalAddress, hospitalPhone} = hospitalData;
+
+    try{
+      const url = 'https://standardmed.onrender.com/standard-health/register-hospital'
+      const doctorName = localStorage.getItem('stdmeduname');
+
+      await fetch(url, {
+        method: 'POST',
+        body: JSON.stringify({doctorName,hospitalName, hospitalAddress, hospitalPhone}),
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      }).then(response => response.text())
+      .then(text => {
+        document.getElementById('add-hospital-response').innerHTML = text;
+      })
+
+    } catch(error){
+      document.getElementById('add-hospital-response').innerHTML = 'An error occurred';
+      console.log(error);
+    }
+    
+  }
 
   return(
-    <div>
-      <form method='post' className='add-patient-form'>
+    <div className="add-div">
+      <p id="add-hospital-response"></p>
+      <form className='add-patient-form'>
         <input 
           type='text'
           placeholder='Hospital Name'
@@ -34,7 +60,7 @@ export function AddHospitalForm(){
           onChange={(e) => setHospitalData({...hospitalData, hospitalPhone:e.target.value})}
         />
 
-        <button type='submit'>Add Hospitals</button>
+        <button type='submit' onClick={registerHospital}>Add Hospital</button>
       </form>
     </div>
     

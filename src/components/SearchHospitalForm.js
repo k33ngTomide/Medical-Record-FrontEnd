@@ -2,15 +2,15 @@
 import { useState } from "react"
 
 
-export function RemoveHospitalForm(){
+export function SearchHospitalForm(){
   
+
   const [hospitalData, setHospitalData] = useState({
     hospitalName: '',
   })
 
-  const removeHospital = async (event) => {
+  const searchHospital = async (event) => {
     event.preventDefault();
-
     const {hospitalName} = hospitalData;
 
     try{
@@ -18,8 +18,7 @@ export function RemoveHospitalForm(){
       const doctorName = localStorage.getItem('stdmeduname');
 
       await fetch(url, {
-        method: 'DELETE',
-        body: JSON.stringify({doctorName,hospitalName}),
+        method: '',
         headers: {
           'Content-Type': 'application/json'
         }
@@ -31,7 +30,7 @@ export function RemoveHospitalForm(){
     } catch(error){
       document.getElementById('remove-h-response').innerHTML = 'An error occurred';
       console.log(error);
-    } 
+    }
     
   }
 
@@ -46,7 +45,7 @@ export function RemoveHospitalForm(){
             onChange={(e) => setHospitalData({...hospitalData, hospitalName:e.target.value})}
           />
 
-          <button type='submit' onClick={removeHospital}>Remove Hospital</button>
+          <button type='submit' onClick={searchHospital}>Search Hospital</button>
         </form>
     </div>
     

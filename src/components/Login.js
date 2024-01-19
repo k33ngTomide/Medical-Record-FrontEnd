@@ -42,7 +42,7 @@ function Login(){
 
       if(!response.ok){
         setIsLoading(false);
-        document.getElementById('signup-response').innerHTML = response.text();
+        document.getElementById('logi-response').innerHTML = response.text();
         return;
       }
 
@@ -52,7 +52,7 @@ function Login(){
 
       if(typeof result.data === 'string'){
         setIsLoading(false);
-        document.getElementById('signup-response').innerHTML = response.text();
+        document.getElementById('logi-response').innerHTML = result.data;
         return;
       }
 
@@ -78,9 +78,9 @@ function Login(){
               <button onClick={cancel} className="cancel-button" id="cancel-login">&times;</button>
               <h1 className="normal-text"> Welcome to Standard Med</h1>
           </div>
-
+          
           <h1 className="normal-text"> Log In</h1>
-          <p className='normal-text' id='login-response'></p>
+          <p className='normal-text' id='logi-response'></p>
           <form  className="details" id="signin" onSubmit={submitted}>
               <input 
                 type="text" 

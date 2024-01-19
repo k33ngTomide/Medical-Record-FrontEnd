@@ -4,12 +4,16 @@ import { AddPatientForm } from './AddPatientForm';
 import { AddHospitalForm } from './AddHospitalForm';
 import { RemoveHospitalForm } from './RemoveHospitalForm';
 import { RemovePatientForm } from './RemovePatientForm';
+import {SearchPatientForm} from './SearchPatientForm';
+import { SearchHospitalForm } from './SearchHospitalForm';
 
 export function RightDashBoard(){
 
   const [value, setValue] = useState('');
   const [showPatient, setShowPatient] = useState(false);
   const [showRemovePatient, setShowRemovePatient] = useState(false);
+  const [showSearchPatient, setShowSearchPatient] = useState(false);
+  const [showSearchHospital, setShowSearchHospital] = useState(false);
   const [showHospital, setShowHospital] = useState(false);
   const [showRemoveHospital, setShowRemoveHospital] = useState(false);
 
@@ -29,7 +33,6 @@ export function RightDashBoard(){
       });
 
       const result = await response.json();
-      console.log('user: ', result.data);
       const {email, pictureLink, username, licence, specialization, dateRegistered, isloggedIn} = result.data;
       
       if(pictureLink){
@@ -46,8 +49,56 @@ export function RightDashBoard(){
       }
     }
 
+    const clearNews = (newsDiv) => {
+      while (newsDiv.firstChild) {
+        newsDiv.removeChild(newsDiv.firstChild);
+      }
+    }
+
+    const fetchNews = async() => {
+      const newsDiv = document.getElementById('health-news');
+      clearNews(newsDiv);
+
+      const newsUrl = 'https://newsapi.org/v2/top-headlines?country=ng&category=health&apiKey=02a64f0248fb4a6ba966906717bb23a4';
+
+      await fetch(newsUrl, {
+        method: 'GET',
+        
+      }).then(response => response.json())
+      .then(object => {
+        const {articles} = object
+        separateArticles(articles, newsDiv);
+      })
+    }
+
     fetchData();  
+    fetchNews()
   }, []);
+
+  const separateArticles = (articles, newsDiv) => {
+    articles.forEach(article => {
+      const {title, url} = article;
+      createNewElement(title, url, newsDiv);
+    });
+
+  }
+
+  const createNewElement = (title, url, newsDiv) => {
+
+    const newH1 = document.createElement('h2');
+    const viewButton = document.createElement('a');
+    const oneNewsDiv = document.createElement('div')
+    
+    viewButton.innerHTML = "Read News";
+    viewButton.href = url;
+    viewButton.id = 'button-like';
+    newH1.innerHTML = title;
+    oneNewsDiv.id = 'news-package'
+    oneNewsDiv.appendChild(newH1);
+    oneNewsDiv.appendChild(viewButton)
+
+    newsDiv.appendChild(oneNewsDiv);
+  }
 
   const handleFileChange = (event) => {
 
@@ -97,6 +148,14 @@ export function RightDashBoard(){
   const toggleRemoveHospital = () => {
     setShowRemoveHospital(!showRemoveHospital);
   };
+
+  const toggleSearchHospital = () => {
+    setShowSearchHospital(!showSearchHospital);
+  };
+
+  const toggleSearchPatient = () => {
+    setShowSearchPatient(!showSearchPatient);
+  };
   return (
     <div className='right-dashboard'>
       <div className='home' id='home'>
@@ -107,32 +166,23 @@ export function RightDashBoard(){
         <div className="details-pane">
           <div className="details-info">
             <h1>Patients</h1>
-            <h1>23</h1>
+            <h1 id='patient-number'>23</h1>
           </div>
 
           <div className="details-info">
             <h1>Hospitals</h1>
-            <h1>23</h1>
+            <h1 id='hospital-number'>23</h1>
           </div>
 
           <div className="details-info">
             <h1> Medical History</h1>
             <h1>230</h1>
           </div>
-
-          
         </div>
 
-        <div className='details-pane'>
-          <div className='details-info'>
-
-          </div>
-
-          <div className='details-info'>
-
-          </div>
-
-          <div className='details-info'>
+        <div >
+          <h1>Health News</h1>
+          <div className='details-pane-div' id='health-news'>
 
           </div>
 
@@ -140,7 +190,7 @@ export function RightDashBoard(){
       </div>
       
       <div className='profile-pane' id='profile'>
-
+        <h1>Profile</h1>
         <img src={profile} alt='profile' id='profile-image'/>
         <button onClick={() => document.getElementById('imageInput').click()}>
           <input
@@ -165,38 +215,54 @@ export function RightDashBoard(){
       </div>
 
       <div className='patients' id='patients'>
-        <>
-          <h1>Patients</h1>
-          <button id='add-patient' onClick={toggleAddPatient}>Add Patient</button>
-          <button id='remove-patient' onClick={toggleRemovePatient}>Delete Patient</button>
-        </>
-        
-        <div>
-          { showPatient && (<AddPatientForm/>)}
-        </div>
-        <div>
-          {showRemovePatient && (<RemovePatientForm/>)}
-        </div>
-        <div id='all-patients'>
+        <div className='first-segment-patient'>
+          <>
+            <h1>Patients</h1>
+          </>
+          <div className='button-container'>
+            <button id='Add-patient' onClick={toggleAddPatient}>Add Patient</button>
+            <button id='Remove-patient' onClick={toggleRemovePatient}>Delete Patient</button>
+            <button id='Search-patient' onClick={toggleSearchPatient}>Search Patient</button>
+          </div>
           
+          <div>
+            { showPatient && (<AddPatientForm/>)}
+          </div>
+          <div>
+            {showRemovePatient && (<RemovePatientForm/>)}
+          </div>
+          <div>
+            {showSearchPatient && (<SearchPatientForm/>)}
+          </div>
+          <div id='all-patients'>
+            <p id='patient-normal'></p>
+            
+          </div>
         </div>
+
+        <div className='medical-record' id='medical-record'>
+
+        </div>
+
       </div>
 
       <div className='hospitals' id='hospitals'>
+
         <>
-          <>
-            <h1>Hospitals</h1>
-          </>
-          
-          <button id='add-hospital' onClick={toggleAddHospital}>Add hospitals</button>
-          <button id='remove-hospital' onClick={toggleRemoveHospital}>Delete Hospitals</button>
+          <h1>Hospitals</h1>
         </>
+        <div className='button-container'>
+          <button id='add-hospital' onClick={toggleAddHospital}>Add hospital</button>
+          <button id='remove-hospital' onClick={toggleRemoveHospital}>Delete Hospital</button>
+          
+        </div>
         <div>
           { showHospital && (<AddHospitalForm/>)}
         </div>
         <div>
           {showRemoveHospital && (<RemoveHospitalForm/>)}
         </div>
+      
 
         <div id='all-hospitals'>
           

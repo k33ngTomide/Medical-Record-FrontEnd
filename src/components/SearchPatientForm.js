@@ -2,13 +2,13 @@
 import { useState } from "react"
 
 
-export function RemovePatientForm(){
+export function SearchPatientForm(){
 
   const [patientData, setPatientData] = useState({
     patientName: '',
   })
 
-  const removePatient = async () => {
+  const searchPatient = async () => {
     const {patientName} = patientData;
 
     try{
@@ -40,8 +40,8 @@ export function RemovePatientForm(){
 
   return(
     <div className="add-div">
-      <p id="remove-patient-response"></p>
-      <form method='post' className='add-patient-form' onSubmit={removePatient}>
+      <p id="search-patient-response"></p>
+      <form method='post' className='add-patient-form' onSubmit={searchPatient}>
           <input 
             type='text'
             placeholder='Patients Name'
@@ -49,7 +49,7 @@ export function RemovePatientForm(){
             onChange={(e) => setPatientData({...patientData, patientName:e.target.value})}
           />
 
-          <button type='submit'>Remove Patient</button>
+          <button type='submit'>Search Patient</button>
         </form>
     </div>
     
