@@ -18,6 +18,7 @@ function hospitalClick(){
       firstDiv.appendChild(firstH1);
       firstDiv.appendChild(firstH3);
       firstDiv.appendChild(ptag);
+      firstDiv.className = 'hospital-package';
 
       ground.appendChild(firstDiv);
     }

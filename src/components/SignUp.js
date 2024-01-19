@@ -110,6 +110,10 @@ function Signup(){
 
   }
 
+  const clearResponse = () => {
+    document.getElementById('signup-response').innerHTML = '';
+  }
+
   return (
     <div className="signup-segment" id="signup-segment">
 
@@ -122,7 +126,7 @@ function Signup(){
         <h1 className='normal-text'>Sign Up</h1>
         <p className='normal-text' id='signup-response'></p>
         <p id='email-info'></p>
-        <form className="details" id="signup" method="post" onSubmit={handleSignUp}>
+        <form className="details" id="signup" method="post" onSubmit={handleSignUp} onClick={clearResponse}>
           <input 
             type="text" 
             placeholder="Enter your name" 

@@ -160,11 +160,22 @@ export function RightDashBoard(){
     try{
 
       console.log("an image was selected");
-      const newFile = document.getElementById('imageInput').files[0];
+      const fileInput = document.getElementById('imageInput');
+      const profileImage = document.getElementById('profile-image');
+      const reader = new FileReader();
+      if (fileInput.files.length > 0) {
+        const newFil = fileInput.files[0];
+        reader.onload = function (e) {
+          profileImage.src = e.target.result;
+        };
+        // Read the file as a data URL
+        reader.readAsDataURL(newFil);
+      
+      }
 
       const username = localStorage.getItem('stdmeduname');
       const formData = new FormData();
-      formData.append('file', newFile);
+      formData.append('file', fileInput.files[0]);
 
       fetch(`https://standardmed.onrender.com/standard-health/doctor/${username}/upload`,{
         method: 'POST',
@@ -191,12 +202,14 @@ export function RightDashBoard(){
   const toggleAddPatient = () => {
     setShowRemovePatient(false);
     setShowSearchPatient(false);
+    setShowMedicalH(false);
     setShowPatient(!showPatient);
   };
   
   const toggleRemovePatient = () => {
     setShowPatient(false);
     setShowSearchPatient(false);
+    setShowMedicalH(false);
     setShowRemovePatient(!showRemovePatient);
   };
 
@@ -211,12 +224,16 @@ export function RightDashBoard(){
   };
 
   const togglePatientMedicalH = () => {
+    setShowRemovePatient(false);
+    setShowSearchPatient(false);
+    setShowPatient(false);
     setShowMedicalH(!showMedicalH);
   };
 
   const toggleSearchPatient = () => {
     setShowRemovePatient(false);
     setShowPatient(false);
+    setShowMedicalH(false);
     setShowSearchPatient(!showSearchPatient);
   };
   return (
@@ -264,11 +281,11 @@ export function RightDashBoard(){
 
         <div>
           <h1>Name: <span id='doctor-name'>Username</span></h1>
-          <p>Email: <span id='doctor-email'>Email</span></p>
-          <p>Specialization: <span id='doctor-spec'>Specialization</span></p>
-          <p>License: <span id='doctor-licence'>License</span></p>
-          <p>Status: <span  id='doctor-status'>Inactive</span></p>
-          <p>Date Registered: <span id='registered-date'>yy/mm/dd</span></p>
+          <p className='db-details'>Email: <span id='doctor-email'>Email</span></p>
+          <p className='db-details'>Specialization: <span id='doctor-spec'>Specialization</span></p>
+          <p className='db-details'>License: <span id='doctor-licence'>License</span></p>
+          <p className='db-details'>Status: <span  id='doctor-status'>Inactive</span></p>
+          <p className='db-details'>Date Registered: <span id='registered-date'>yy/mm/dd</span></p>
         </div>
 
       </div>
@@ -282,7 +299,7 @@ export function RightDashBoard(){
             <button id='Add-patient' onClick={toggleAddPatient}>Add Patient</button>
             <button id='Remove-patient' onClick={toggleRemovePatient}>Delete Patient</button>
             <button id='Search-patient' onClick={toggleSearchPatient}>Search Patient</button>
-            <button id='patient-medicalH' onClick={togglePatientMedicalH}>Add Medical History</button>
+            <button id='patient-medicalH' onClick={togglePatientMedicalH}>Add Medical Record</button>
           </div>
           
           <div>
@@ -297,7 +314,7 @@ export function RightDashBoard(){
           <div>
             {showMedicalH && (<MedicalHistoryForm/>)}
           </div>
-          <div className='details-pane' id='all-patients'>
+          <div className='details-paner' id='all-patients'>
             <p id='patient-normal'></p>
             
           </div>
@@ -327,7 +344,7 @@ export function RightDashBoard(){
         </div>
       
 
-        <div id='all-hospitals'>
+        <div className='details-paner' id='all-hospitals'>
           
         </div>
       </div>

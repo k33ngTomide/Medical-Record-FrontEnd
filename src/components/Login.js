@@ -69,6 +69,9 @@ function Login(){
 
   }
   
+  const clearResponse = () => {
+    document.getElementById('logi-response').innerHTML = '';
+  }
 
   return (
     <div className="login-segment" id ="login-segment">
@@ -81,7 +84,7 @@ function Login(){
           
           <h1 className="normal-text"> Log In</h1>
           <p className='normal-text' id='logi-response'></p>
-          <form  className="details" id="signin" onSubmit={submitted}>
+          <form  className="details" id="signin" onSubmit={submitted} onClick={clearResponse}>
               <input 
                 type="text" 
                 placeholder="Enter Username" 
