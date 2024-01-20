@@ -22,11 +22,10 @@ export function LeftDashBoard(){
   const navigate = useNavigate();
 
   const logout = () => {
-    console.log('i got here');
     setIsLoading(true);
     let username = localStorage.getItem('stdmeduname');
 
-    let url = "https://standardmed.onrender.com/standard-health/logout-user";
+    let url = `${process.env.REACT_APP_URL}/logout-user`;
     const response = fetch (url, {
       method: 'PATCH',
       body: JSON.stringify({username}),
@@ -39,6 +38,7 @@ export function LeftDashBoard(){
     .then(text => {
       console.log(text)
       if(text.includes('Logged out')){
+        localStorage.setItem('stdmeduname', '')
         navigate('/');
       }
     }).catch(error => {

@@ -35,6 +35,7 @@ function App() {
           <BrowserRouter>
             <Routes>
               <Route path='/' element={<FirstPage/>}/>
+              <Route path='*' element={<FirstPage/>}/>
               <Route path='/dashboard' element={<DashBoard/>}/>
             </Routes>
           </BrowserRouter>

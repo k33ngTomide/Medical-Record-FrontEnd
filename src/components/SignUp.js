@@ -35,7 +35,7 @@ function Signup(){
       "specialization": specialization.trim(),
     }
 
-    const url = 'https://standardmed.onrender.com/standard-health/register'
+    const url =  `${process.env.REACT_APP_URL}/register`
 
     await fetch(url, {
       method: 'POST',
@@ -87,12 +87,12 @@ function Signup(){
       </p>`
     }
 
-    await fetch('https://api.brevo.com/v3/smtp/email', {
+    await fetch(`${process.env.REACT_APP_EMAIL_SENDER}`, {
       method:'POST',
       body: JSON.stringify(emailRequest),
       headers:{
         'Accept': 'application/json',
-        'Api-key': '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',
+        'Api-key': `${process.env.REACT_APP_API_KEY}`,
         'Content-Type': 'application/json'
       }
     })

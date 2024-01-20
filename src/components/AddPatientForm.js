@@ -39,7 +39,7 @@ export function AddPatientForm() {
           details: details
         }
     
-        const url = 'https://standardmed.onrender.com/standard-health/register-patient';
+        const url = `${process.env.REACT_APP_URL}/register-patient`;
         await fetch(url, {
           method: 'POST',
           body: JSON.stringify(patientRegisterRequest),

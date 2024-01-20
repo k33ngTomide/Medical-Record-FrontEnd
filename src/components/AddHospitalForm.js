@@ -14,7 +14,7 @@ export function AddHospitalForm(){
     const {hospitalName, hospitalAddress, hospitalPhone} = hospitalData;
 
     try{
-      const url = 'https://standardmed.onrender.com/standard-health/register-hospital'
+      const url = `${process.env.REACT_APP_URL}/register-hospital`
       const doctorName = localStorage.getItem('stdmeduname');
 
       await fetch(url, {

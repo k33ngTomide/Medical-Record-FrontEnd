@@ -7,7 +7,7 @@ async function profileClick(){
   document.getElementById('profile_button').style.backgroundColor = 'lightblue';
 
   const doctorName = localStorage.getItem('stdmeduname');
-  const url = `https://standardmed.onrender.com/standard-health/find-doctor/${doctorName}`
+  const url = `${process.env.REACT_APP_URL}/find-doctor/${doctorName}`
   const response = await fetch(url, {
     method: 'GET',
     headers: {

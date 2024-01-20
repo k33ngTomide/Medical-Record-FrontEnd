@@ -14,11 +14,11 @@ export function SearchHospitalForm(){
     const {hospitalName} = hospitalData;
 
     try{
-      const url = 'https://standardmed.onrender.com/standard-health/remove-Hospital'
+      const url = `${process.env.REACT_APP_URL}/remove-Hospital/${doctorName}/${hospitalName}`
       const doctorName = localStorage.getItem('stdmeduname');
 
       await fetch(url, {
-        method: '',
+        method: 'GET',
         headers: {
           'Content-Type': 'application/json'
         }

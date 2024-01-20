@@ -14,7 +14,7 @@ export function MedicalHistoryForm(){
     const {patientName, sickness, prescription, comment} = patientData;
 
     try{
-      const url = 'https://standardmed.onrender.com/standard-health/enter-medical-history';
+      const url = `${process.env.REACT_APP_URL}/enter-medical-history`;
       const doctorName = localStorage.getItem('stdmeduname');
 
       await fetch(url, {

@@ -24,7 +24,7 @@ export function RightDashBoard(){
     const fetchPatientData = async () => {
       try{
         const doctorName = localStorage.getItem('stdmeduname')
-        const url = `https://standardmed.onrender.com/standard-health/${doctorName}/patients`
+        const url = `${process.env.REACT_APP_URL}/${doctorName}/patients`
         await fetch(url, {
           method: 'GET',
           headers: {
@@ -51,7 +51,7 @@ export function RightDashBoard(){
       try{
         const doctorName = localStorage.getItem('stdmeduname');
 
-        const url = `https://standardmed.onrender.com/standard-health/${doctorName}/hospitals`
+        const url = `${process.env.REACT_APP_URL}/${doctorName}/hospitals`
         await fetch(url, {
           method: 'GET',
           headers: {
@@ -75,7 +75,7 @@ export function RightDashBoard(){
 
     const fetchData = async () => {
       const doctorName = localStorage.getItem('stdmeduname');
-      const url = `https://standardmed.onrender.com/standard-health/find-doctor/${doctorName}`
+      const url = `${process.env.REACT_APP_URL}/find-doctor/${doctorName}`
 
       const response = await fetch(url, {
         method: 'GET',
@@ -111,7 +111,7 @@ export function RightDashBoard(){
       const newsDiv = document.getElementById('health-news');
       clearNews(newsDiv);
 
-      const newsUrl = 'https://newsapi.org/v2/top-headlines?country=ng&category=health&apiKey=02a64f0248fb4a6ba966906717bb23a4';
+      const newsUrl = `${process.env.REACT_APP_NEWS_URL}`;
 
       await fetch(newsUrl, {
         method: 'GET',
@@ -146,6 +146,7 @@ export function RightDashBoard(){
     viewButton.innerHTML = "Read News";
     viewButton.href = url;
     viewButton.id = 'button-like';
+    viewButton.target = 'blank';
     newH1.innerHTML = title;
     oneNewsDiv.id = 'news-package'
     oneNewsDiv.appendChild(newH1);
@@ -177,7 +178,7 @@ export function RightDashBoard(){
       const formData = new FormData();
       formData.append('file', fileInput.files[0]);
 
-      fetch(`https://standardmed.onrender.com/standard-health/doctor/${username}/upload`,{
+      fetch(`${process.env.REACT_APP_URL}/doctor/${username}/upload`,{
         method: 'POST',
         body: formData,
         headers: {
@@ -374,7 +375,9 @@ export function RightDashBoard(){
         <p>Follow Us:
           Stay connected with us on social media for updates, tips, and community highlights.<br/>
           Subscribe to our newsletter for the latest news and exclusive content.
-          Thank you for choosing Standard Med! We are here to ensure you have a seamless experience. If you can't find the information you need, don't hesitate to reach out to our support team. Your satisfaction is our priority.
+          Thank you for choosing Standard Med! We are here to ensure you have a seamless experience. 
+          If you can't find the information you need, don't hesitate to reach out to our support team. 
+          Your satisfaction is our priority.
         </p>
 
       </div>

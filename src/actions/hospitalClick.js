@@ -39,7 +39,7 @@ function hospitalClick(){
 
     const doctorName = localStorage.getItem('stdmeduname');
 
-    const url = `https://standardmed.onrender.com/standard-health/${doctorName}/hospitals`
+    const url = `${process.env.REACT_APP_URL}/${doctorName}/hospitals`
     fetch(url, {
       method: 'GET',
       headers: {

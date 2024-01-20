@@ -12,7 +12,7 @@ export function SearchPatientForm(){
     const {patientName} = patientData;
 
     try{
-      const url = 'https://standardmed.onrender.com/standard-health/remove-Patient'
+      const url = `${process.env.REACT_APP_URL}/remove-Patient`
       const doctorName = localStorage.getItem('stdmeduname');
 
       await fetch(url, {
