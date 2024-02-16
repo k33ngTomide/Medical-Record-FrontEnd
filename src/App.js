@@ -1,7 +1,7 @@
 import './App.css';
-import './styles/signup.css';
-import './styles/login.css';
-import './styles/dashboard.css';
+import './allstyles/signup.css';
+import './allstyles/login.css';
+import './allstyles/dashboard.css';
 import FirstPage from './components/FirstPage';
 import { DashBoard } from './components/Dashboard';
 import React, { useState, useEffect } from 'react';
