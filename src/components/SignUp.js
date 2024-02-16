@@ -1,7 +1,7 @@
 
 import React, { useState } from 'react';
 import Loader from './Loader';
-import '../styles/loader.css'
+import '../allstyles/loader.css'
 
 function Signup(){
   const [isLoading, setIsLoading] = useState(false);

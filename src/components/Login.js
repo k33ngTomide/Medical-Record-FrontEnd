@@ -2,7 +2,7 @@ import { useState } from 'react';
 import './Dashboard'
 // import { DashBoard } from './Dashboard';
 import Loader from './Loader';
-import '../styles/loader.css'
+import '../allstyles/loader.css'
 import { useNavigate } from 'react-router-dom';
 
 

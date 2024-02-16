@@ -2,7 +2,7 @@ import './SignUp';
 import './Login';
 import { LeftDashBoard } from './LeftDashBoard';
 import { RightDashBoard } from './RightDashBoard';
-import '../styles/dashboard.css';
+import '../allstyles/dashboard.css';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router';
 
