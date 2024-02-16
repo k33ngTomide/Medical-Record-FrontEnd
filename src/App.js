@@ -5,7 +5,7 @@ import './allstyles/dashboard.css';
 import FirstPage from './components/FirstPage';
 import { DashBoard } from './components/Dashboard';
 import React, { useState, useEffect } from 'react';
-import './styles/line_loader.css';
+import './allstyles/line_loader.css';
 import { LoadingPage} from './components/LoadingPage';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
